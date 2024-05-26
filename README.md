@@ -46,7 +46,7 @@ $ python
 #### sqlalchemy-altibase7 using langchain
 - install : pip install sqlalchemy-altibase7
 - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/
-- create table and populate data into Altibase database using Chinook_Altibase.sql file in this repository.
+- create table and populate data into Altibase database using "test/Chinook_Altibase.sql" file in this repository.
 - test :
 ```
 $ python
