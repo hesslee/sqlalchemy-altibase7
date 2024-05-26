@@ -10,9 +10,9 @@
 - pyodbc
 
 ## unixodbc
-> install : sudo apt-get install unixodbc-dev
-> example configuration :
-'''
+- install : sudo apt-get install unixodbc-dev
+- example configuration :
+```
 $ cat /etc/odbc.ini 
 [PYODBC]
 Driver          = /home/hess/work/altidev4/altibase_home/lib/libaltibase_odbc-64bit-ul64.so
@@ -29,4 +29,4 @@ $ cat /etc/odbcinst.ini
 [ODBC]
 Trace=Yes
 TraceFile=/tmp/odbc_trace.log
-'''
+```
