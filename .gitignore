@@ -1,6 +1,7 @@
 # python
 **/*.egg-info/
 **/build
+**/dist
 **/__pycache__/
 
 # for mackbook
