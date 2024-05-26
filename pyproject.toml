@@ -26,7 +26,7 @@ classifiers=[
     ]
 
 [project.urls]
-#### "Source Code" = "https://github.com/hesslee/sqlalchemy_altibase7"
+"Source Code" = "https://github.com/hesslee/sqlalchemy-altibase7"
 
 #### [tool.setuptools_scm]
 
