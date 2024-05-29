@@ -50,5 +50,6 @@ $ python
 - install : pip install sqlalchemy-altibase7
 - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/
 - test preparation : Populate sample data into Altibase database using "test/Chinook_Altibase.sql" file in this repository.
-- test program :
-  - simple : python test/altitest.py
+- test :
+  - simple :
+    - python test/altitest.py
