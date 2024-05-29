@@ -24,6 +24,9 @@ from sqlalchemy.types import (
     DATE,
     DECIMAL,
     FLOAT,
+    NUMERIC,
+    REAL,
+    DOUBLE,
     INTEGER,
     NCHAR,
     NVARCHAR,
@@ -31,7 +34,7 @@ from sqlalchemy.types import (
     VARCHAR,
 )
 from sqlalchemy import util
-from sqlalchemy.util import py2k, warn
+from sqlalchemy.util import warn #,py2k
 from itertools import groupby
 import re
 
@@ -328,10 +331,11 @@ ischema_names = {
     "NVARCHAR": NVARCHAR,
     "CLOB": CLOB,
     "BLOB": BLOB,
-    "NUMBER": oracle_base.NUMBER,
+    "NUMBER": NUMERIC,  #oracle_base.NUMBER,
+    "NUMERIC": NUMERIC,
     "FLOAT": FLOAT,
-    "REAL": oracle_base.BINARY_FLOAT,
-    "DOUBLE": oracle_base.BINARY_DOUBLE,
+    "REAL": REAL,       #oracle_base.BINARY_FLOAT,
+    "DOUBLE": DOUBLE,   #oracle_base.BINARY_DOUBLE,
     "DECIMAL": DECIMAL,
     "BIGINT": BIGINT,
     "INTEGER": INTEGER,
@@ -350,9 +354,17 @@ class AltibaseInspector(reflection.Inspector):
         reflection.Inspector.__init__(self, conn)
 
 
-class AltibaseExecutionContext(oracle_base.OracleExecutionContext):
-    pass
+#class AltibaseExecutionContext(oracle_base.OracleExecutionContext):
+#    pass
 
+class AltibaseExecutionContext(default.DefaultExecutionContext):
+    def fire_sequence(self, seq, type_):
+        return self._execute_scalar(
+            "SELECT "
+            + self.identifier_preparer.format_sequence(seq)
+            + ".nextval FROM DUAL",
+            type_,
+        )
 
 class AltibaseSQLCompiler(oracle_base.OracleCompiler):
     def limit_clause(self, select, **kw):
@@ -412,6 +424,7 @@ class AltibaseDialect(default.DefaultDialect):
     supports_default_metavalue = True
     supports_empty_insert = False
     supports_identity_columns = True
+    _supports_offset_fetch = False
 
     type_compiler = AltibaseTypeCompiler
     statement_compiler = AltibaseSQLCompiler
@@ -849,8 +862,8 @@ class AltibaseDialect(default.DefaultDialect):
         rp = "".join(connection.execute(text(query), params).scalars().all())
 
         if rp:
-            if py2k:
-                rp = rp.decode(self.encoding)
+            #if py2k:
+            #    rp = rp.decode(self.encoding)
             return rp
         else:
             return None
