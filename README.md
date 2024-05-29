@@ -43,7 +43,7 @@ $ python
 >>> curs.fetchall()
 ```
 
-#### sqlalchemy-altibase7 using langchain
+# sqlalchemy-altibase7 using langchain
 - install : pip install sqlalchemy-altibase7
 - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/
 - test preparation : Populate sample data into Altibase database using "test/Chinook_Altibase.sql" file in this repository.
