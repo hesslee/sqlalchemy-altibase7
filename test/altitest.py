@@ -5,6 +5,10 @@ from langchain_openai import ChatOpenAI
 
 # connectstring: altibase+pyodbc://<username>:<password>@<dsnname>?server=<server> & port=<port> & database=<database_name>
 db = SQLDatabase.from_uri("altibase+pyodbc://@PYODBC")
+
+# default encoding 'utf-16' makes buffer overflow error when you execute a wrong query.
+db.connection.setencoding('utf-8')
+
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 
 _altibase_prompt = """You are a Altibase expert. Given an input question, first create a syntactically correct Altibase query to run, then look at the results of the query and return the answer to the input question.
