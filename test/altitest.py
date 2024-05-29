@@ -1,13 +1,13 @@
 from langchain_community.utilities import SQLDatabase
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain.chains import create_sql_query_chain
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 
 # connectstring: altibase+pyodbc://<username>:<password>@<dsnname>?server=<server> & port=<port> & database=<database_name>
-db = SQLDatabase.from_uri("altibase+pyodbc://@PYODBC")
+db = SQLDatabase.from_uri("altibase+pyodbc://@PYODBC?encoding=UTF-8")
 
-# default encoding 'utf-16' makes buffer overflow error when you execute a wrong query.
-db.connection.setencoding('utf-8')
+#db.connection.setencoding('utf-8')
 
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 
@@ -39,7 +39,9 @@ ALTIBASE_PROMPT = PromptTemplate(
    template=_altibase_prompt,
 )
 
-chain = create_sql_query_chain(llm, db, prompt = ALTIBASE_PROMPT)
+execute_query = QuerySQLDataBaseTool(db=db)
+create_query = create_sql_query_chain(llm, db, prompt = ALTIBASE_PROMPT)
+chain = create_query | execute_query
+
 response = chain.invoke({"question": "How many employees are there?"})
 print(response)
-db.run(response)
