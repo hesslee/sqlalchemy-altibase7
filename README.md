@@ -50,6 +50,10 @@ $ python
 - install : pip install sqlalchemy-altibase7
 - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/
 - test preparation : Populate sample data into Altibase database using "test/Chinook_Altibase.sql" file in this repository.
-- test :
-  - simple :
-    - python test/altitest.py
+- test programs
+  - langchain_chains.py : using chains
+  - langchain_agent.py : using sql agent
+  - langchain_agent_fewshot.py : using sql agent with few shot prompt
+	- langchain_agent_retriever.py : using sql agent with retriever for correcting invalid nouns
+
+
