@@ -3,11 +3,13 @@ from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain.chains import create_sql_query_chain
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+
+from operator import itemgetter
 
 # connectstring: altibase+pyodbc://<username>:<password>@<dsnname>?server=<server> & port=<port> & database=<database_name>
 db = SQLDatabase.from_uri("altibase+pyodbc://@PYODBC?encoding=UTF-8")
-
-#db.connection.setencoding('utf-8')
 
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 
@@ -40,8 +42,28 @@ ALTIBASE_PROMPT = PromptTemplate(
 )
 
 execute_query = QuerySQLDataBaseTool(db=db)
-create_query = create_sql_query_chain(llm, db, prompt = ALTIBASE_PROMPT)
-chain = create_query | execute_query
+write_query = create_sql_query_chain(llm, db, prompt = ALTIBASE_PROMPT)
 
-response = chain.invoke({"question": "How many employees are there?"})
+#chain = write_query | execute_query
+#response = chain.invoke({"question": "How many employees are there?"})
+#print(response)
+
+answer_prompt = PromptTemplate.from_template(
+    """Given the following user question, corresponding SQL query, and SQL result, answer the user question.
+
+Question: {question}
+SQL Query: {query}
+SQL Result: {result}
+Answer: """
+)
+
+answer = answer_prompt | llm | StrOutputParser()
+chain = (
+    RunnablePassthrough.assign(query=write_query).assign(
+        result=itemgetter("query") | execute_query
+    )
+    | answer
+)
+
+response = chain.invoke({"question": "How many employees are there"})
 print(response)
