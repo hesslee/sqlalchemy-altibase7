@@ -48,12 +48,16 @@ $ python
 
 # sqlalchemy-altibase7 using langchain
 - install : pip install sqlalchemy-altibase7
-- reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/
+- reference : https://python.langchain.com/v0.1/docs/use_cases/sql/
 - test preparation : Populate sample data into Altibase database using "test/Chinook_Altibase.sql" file in this repository.
 - test programs
-  - langchain_chains.py : using chains
+  - langchain_chain.py : using chain
+    - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/#chain
   - langchain_agent.py : using sql agent
+    - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/agents/#agent
   - langchain_agent_fewshot.py : using sql agent with few shot prompt
+    - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/agents/#using-a-dynamic-few-shot-prompt
   - langchain_agent_retriever.py : using sql agent with retriever for correcting invalid nouns
+    - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/agents/#dealing-with-high-cardinality-columns
 
 
