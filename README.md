@@ -54,6 +54,6 @@ $ python
   - langchain_chains.py : using chains
   - langchain_agent.py : using sql agent
   - langchain_agent_fewshot.py : using sql agent with few shot prompt
-	- langchain_agent_retriever.py : using sql agent with retriever for correcting invalid nouns
+  - langchain_agent_retriever.py : using sql agent with retriever for correcting invalid nouns
 
 
