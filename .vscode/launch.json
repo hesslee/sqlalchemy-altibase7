@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "Python Debugger: Python File",
+            "type": "debugpy",
+            "request": "launch",
+            "justMyCode": false,
+            "program": "${file}",
+            "args": ["--dburi", "altibase+pyodbc://@PYODBC"]
+        }
+    ]
+}

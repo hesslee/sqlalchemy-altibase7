@@ -1,6 +1,7 @@
 from sqlalchemy import extract, select, sql
 from sqlalchemy.testing import AssertsCompiledSQL
-from sqlalchemy.testing.plugin.plugin_base import fixtures
+#from sqlalchemy.testing.plugin.plugin_base import fixtures
+from sqlalchemy.testing import fixtures
 
 import sqlalchemy_altibase7 as altibase
 
@@ -23,7 +24,7 @@ class CompileTestImportedFromInternalDialect(fixtures.TestBase, AssertsCompiledS
         for field, subst in list(mapping.items()):
             self.assert_compile(
                 select(extract(field, t.c.col1)),
-                'SELECT DATEPART("%s", t.col1) AS anon_1 FROM t' % subst,
+                'SELECT EXTRACT(%s FROM t.col1) AS anon_1 FROM t' % subst,
             )
 
     def test_limit_offset(self):

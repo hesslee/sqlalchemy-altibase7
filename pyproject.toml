@@ -66,3 +66,7 @@ ignore_missing_imports = true
 [tool.flake8]
 max-complexity = 20
 exclude = [".git", "__pycache__"]
+
+[db]
+default = "altibase+pyodbc://@PYODBC"
+altibase = "altibase+pyodbc://@PYODBC"
