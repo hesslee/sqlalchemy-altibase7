@@ -59,9 +59,5 @@ NLS_USE: UTF-8
     - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/quickstart/#chain
   - langchain_agent.py : using sql agent
     - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/agents/#agent
-  - langchain_agent_fewshot.py : using sql agent with few shot prompt
-    - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/agents/#using-a-dynamic-few-shot-prompt
-  - langchain_agent_retriever.py : using sql agent with retriever for correcting invalid nouns
-    - reference : https://python.langchain.com/v0.1/docs/use_cases/sql/agents/#dealing-with-high-cardinality-columns
 
 
