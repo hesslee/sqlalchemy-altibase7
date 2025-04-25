@@ -8,11 +8,12 @@
 - It is mainly supplemented for langchain connectivity.
 - sqlalchemy version upper limit requirement is removed.
 
-# Prereqisite
-- unixodbc
-- pyodbc
+## Prereqisite
+- Download and install Altibase server and client from http://support.altibase.com/en/product
+- Unixodbc setting for Linux
+- ODBC DSN setting for Windows
 
-## unixodbc
+### Unixodbc setting example for Linux
 - install : sudo apt-get install unixodbc-dev
 - example configuration :
 ```
@@ -34,16 +35,19 @@ Trace=Yes
 TraceFile=/tmp/odbc_trace.log
 ```
 
-## pyodbc
-- install : pip install pyodbc
-- test :
+### ODBC DSN setting example for Windows
+- Altibase Windows ODBC driver is registered during Altibase Windows client installation procedure.
+- Add a ODBC DSN for Altibase.
+- example configuration :
 ```
-$ python
->>> import pyodbc
->>> conn = pyodbc.connect('DSN=PYODBC')
->>> curs = conn.cursor()
->>> curs.execute("select * from v$table")
->>> curs.fetchall()
+[Altibase Connection Config]
+Windows DSN Name: PYODBC
+host(name or IP): 192.168.1.210
+Port(default 20300): 21121
+User: SYS
+Password: MANAGER
+Database: mydb
+NLS_USE: UTF-8
 ```
 
 # sqlalchemy-altibase7 using langchain
